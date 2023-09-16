@@ -14,6 +14,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final textController = TextEditingController();
+  // setting default search city
+  var searchCity = 'oslo';
 
   WeatherApi client = WeatherApi();
   Weather? data;
@@ -27,7 +29,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: weatherAppBar(),
-      body: weatherFutureBuilder('oslo'),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            weatherAppBody(),
+            weatherFutureBuilder(searchCity),
+          ],
+        ),
+      ),
     );
   }
 
@@ -53,7 +62,9 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.grey,
                   ),
                 ),
-                style: const TextStyle(color: Colors.black),
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -67,8 +78,8 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.circular(24),
               ),
               padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 15,
+                horizontal: 18,
+                vertical: 10,
               ),
               child: const Text(
                 'search',
@@ -81,8 +92,10 @@ class _HomePageState extends State<HomePage> {
             ),
             onTap: () {
               if (textController.text != '') {
-                // print(textController.text);
-                // weatherFutureBuilder(textController.text);
+                setState(() {
+                  searchCity = textController.text;
+                  // showWeather = true;
+                });
               }
             },
           ),

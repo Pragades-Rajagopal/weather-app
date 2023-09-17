@@ -5,6 +5,8 @@ import 'package:weather_app/services/weather_api.dart';
 import 'package:weather_app/widgets/additional_info.dart';
 import 'package:weather_app/widgets/current_weather.dart';
 
+BorderRadius searchBarRadius = BorderRadius.circular(30.0);
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -27,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFF0F1026),
       appBar: weatherAppBar(),
       body: SingleChildScrollView(
         child: Column(
@@ -56,10 +58,44 @@ class _HomePageState extends State<HomePage> {
               ),
               child: TextField(
                 controller: textController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.all(10.0),
                   hintText: 'search city',
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     color: Colors.grey,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: searchBarRadius,
+                    borderSide: const BorderSide(
+                      width: 0.0,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: searchBarRadius,
+                    borderSide: const BorderSide(
+                      color: Colors.white10,
+                    ),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white12,
+                  prefixIcon: IconButton(
+                    color: Colors.white,
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      textController.text = '';
+                    },
+                  ),
+                  suffixIcon: IconButton(
+                    color: Colors.white,
+                    icon: const Icon(Icons.search),
+                    onPressed: () {
+                      if (textController.text != '') {
+                        setState(() {
+                          searchCity = textController.text;
+                          // showWeather = true;
+                        });
+                      }
+                    },
                   ),
                 ),
                 style: const TextStyle(
@@ -67,37 +103,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          GestureDetector(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.amber,
-                borderRadius: BorderRadius.circular(24),
-              ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 18,
-                vertical: 10,
-              ),
-              child: const Text(
-                'search',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            onTap: () {
-              if (textController.text != '') {
-                setState(() {
-                  searchCity = textController.text;
-                  // showWeather = true;
-                });
-              }
-            },
           ),
         ],
       ),
@@ -143,11 +148,8 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(
-            height: 10.0,
-          ),
           currentWeather(
-            "${data!.icon}",
+            getIcon(data!.icon),
             "${data!.temp} °C",
             "${data!.cityName}",
             "${data!.description}",
@@ -181,6 +183,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Image getIcon(String icon) {
+    String url = "https://openweathermap.org/img/wn/$icon@4x.png";
+    return Image.network(url);
+  }
+
   AppBar weatherAppBar() {
     return AppBar(
       backgroundColor: Colors.transparent,
@@ -190,7 +197,7 @@ class _HomePageState extends State<HomePage> {
       centerTitle: true,
       titleTextStyle: GoogleFonts.poppins(
         fontSize: 24.0,
-        color: Colors.lightBlue,
+        color: const Color(0xFF2979FF),
       ),
     );
   }

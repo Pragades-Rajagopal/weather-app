@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 
-Image getIcon(String icon) {
-  String url = "https://openweathermap.org/img/wn/$icon@4x.png";
-  return Image.network(url);
-}
-
 Widget currentWeather(
-  String icon,
+  Image icon,
   String temp,
   String location,
   String description,
@@ -19,7 +14,9 @@ Widget currentWeather(
       children: [
         Center(
           child: SizedBox(
-            child: getIcon(icon),
+            width: 160,
+            height: 160,
+            child: icon,
           ),
         ),
         const SizedBox(
@@ -42,6 +39,7 @@ Widget currentWeather(
             fontWeight: FontWeight.bold,
             color: Colors.grey,
           ),
+          textAlign: TextAlign.center,
         ),
         const SizedBox(
           height: 10.0,

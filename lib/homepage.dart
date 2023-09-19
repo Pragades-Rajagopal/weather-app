@@ -1,6 +1,8 @@
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_app/models/weather_model.dart';
+import 'package:weather_app/services/cities_api.dart';
 import 'package:weather_app/services/weather_api.dart';
 import 'package:weather_app/widgets/additional_info.dart';
 import 'package:weather_app/widgets/current_weather.dart';
@@ -21,13 +23,20 @@ class _HomePageState extends State<HomePage> {
 
   WeatherApi client = WeatherApi();
   Weather? data;
+  CitiesApi cities = CitiesApi();
+  List<String> citiesData = [];
 
   Future<void> getData(String city) async {
     data = await client.getCurrentWeather(city);
   }
 
+  Future<void> getCitiesFunc() async {
+    citiesData = await cities.getCities();
+  }
+
   @override
   Widget build(BuildContext context) {
+    getCitiesFunc();
     return Scaffold(
       backgroundColor: const Color(0xFF0F1026),
       appBar: weatherAppBar(),
@@ -42,8 +51,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// needs work
   Widget weatherAppBody() {
+    GlobalKey<AutoCompleteTextFieldState<String>> key = GlobalKey();
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 10,
@@ -56,8 +65,11 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(
                 horizontal: 5,
               ),
-              child: TextField(
+              child: SimpleAutoCompleteTextField(
+                key: key,
                 controller: textController,
+                suggestions: citiesData,
+                suggestionsAmount: 6,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(10.0),
                   hintText: 'search city',
@@ -92,15 +104,23 @@ class _HomePageState extends State<HomePage> {
                       if (textController.text != '') {
                         setState(() {
                           searchCity = textController.text;
-                          // showWeather = true;
                         });
+                        textController.text = '';
                       }
                     },
                   ),
                 ),
+                cursorColor: Colors.white,
                 style: const TextStyle(
                   color: Colors.white,
                 ),
+                textSubmitted: (data) {
+                  if (textController.text != '') {
+                    setState(() {
+                      searchCity = textController.text;
+                    });
+                  }
+                },
               ),
             ),
           ),
@@ -115,6 +135,17 @@ class _HomePageState extends State<HomePage> {
       builder: (context, snapshot) {
         try {
           if (snapshot.connectionState == ConnectionState.done) {
+            if (data?.cityName == '') {
+              return const Center(
+                child: Text(
+                  "Oops! \nWeather info not available. Please search for another city.",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            }
             return weatherColumn(data);
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -150,7 +181,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           currentWeather(
             getIcon(data!.icon),
-            "${data!.temp} °C",
+            "${data!.temp}°C",
             "${data!.cityName}",
             "${data!.description}",
             "${data!.country}",
@@ -176,7 +207,7 @@ class _HomePageState extends State<HomePage> {
             "${data!.wind} m/s",
             "${data!.humidity} %",
             "${data!.pressure} bar",
-            "${data!.feelsLike} °C",
+            "${data!.feelsLike}°C",
           ),
         ],
       ),

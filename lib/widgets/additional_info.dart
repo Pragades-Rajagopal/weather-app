@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-TextStyle titleFont = const TextStyle(
-  fontWeight: FontWeight.w600,
-  fontSize: 18.0,
-  color: Colors.white,
+SizedBox div = const SizedBox(height: 16);
+var containerTitleStyle = TextStyle(
+  fontSize: 20,
+  color: Colors.grey[400],
 );
-TextStyle infoFont = const TextStyle(
-  fontWeight: FontWeight.w400,
-  fontSize: 18.0,
-  color: Colors.white,
+var containerInfoStyle = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
+  color: Colors.grey[400],
 );
+Color containerColor = Colors.blueGrey.withOpacity(0.3);
 
 Widget additionalInformation(
   String wind,
@@ -19,88 +20,157 @@ Widget additionalInformation(
 ) {
   return Container(
     width: double.infinity,
-    padding: const EdgeInsets.all(18.0),
+    padding: const EdgeInsets.all(10.0),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'wind',
-                  style: titleFont,
-                ),
-                const SizedBox(
-                  height: 18.0,
-                ),
-                Text(
-                  'pressure',
-                  style: titleFont,
-                ),
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  wind,
-                  style: infoFont,
-                ),
-                const SizedBox(
-                  height: 18.0,
-                ),
-                Text(
-                  pressure,
-                  style: infoFont,
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 80,
-              child: VerticalDivider(
-                color: Colors.white,
+            Container(
+              width: 165,
+              height: 110,
+              margin: const EdgeInsets.only(right: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: containerColor,
+              ),
+              padding: const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 10,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "wind",
+                        style: containerTitleStyle,
+                      )
+                    ],
+                  ),
+                  div,
+                  Row(
+                    children: [
+                      Text(
+                        wind,
+                        style: containerInfoStyle,
+                      )
+                    ],
+                  ),
+                ],
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'humidity',
-                  style: titleFont,
-                ),
-                const SizedBox(
-                  height: 18.0,
-                ),
-                Text(
-                  'feels like',
-                  style: titleFont,
-                ),
-              ],
+            Container(
+              width: 165,
+              height: 110,
+              margin: const EdgeInsets.only(left: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: containerColor,
+              ),
+              padding: const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 10,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "humidity",
+                        style: containerTitleStyle,
+                      )
+                    ],
+                  ),
+                  div,
+                  Row(
+                    children: [
+                      Text(
+                        humidity,
+                        style: containerInfoStyle,
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  humidity,
-                  style: infoFont,
-                ),
-                const SizedBox(
-                  height: 18.0,
-                ),
-                Text(
-                  feelsLike,
-                  style: infoFont,
-                ),
-              ],
+          ],
+        ),
+        div,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 165,
+              height: 110,
+              margin: const EdgeInsets.only(right: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: containerColor,
+              ),
+              padding: const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 10,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "pressure",
+                        style: containerTitleStyle,
+                      )
+                    ],
+                  ),
+                  div,
+                  Row(
+                    children: [
+                      Text(
+                        pressure,
+                        style: containerInfoStyle,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: 165,
+              height: 110,
+              margin: const EdgeInsets.only(left: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: containerColor,
+              ),
+              padding: const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 10,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "feels like",
+                        style: containerTitleStyle,
+                      )
+                    ],
+                  ),
+                  div,
+                  Row(
+                    children: [
+                      Text(
+                        feelsLike,
+                        style: containerInfoStyle,
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),

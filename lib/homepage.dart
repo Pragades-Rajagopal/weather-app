@@ -40,18 +40,24 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color(0xFF0F1026),
       appBar: weatherAppBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            weatherAppBody(),
-            weatherFutureBuilder(searchCity),
-          ],
-        ),
+      body: Column(
+        children: [
+          weatherAppSearch(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  weatherFutureBuilder(searchCity),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget weatherAppBody() {
+  Widget weatherAppSearch() {
     GlobalKey<AutoCompleteTextFieldState<String>> key = GlobalKey();
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -197,17 +203,26 @@ class _HomePageState extends State<HomePage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const Divider(
-            color: Colors.blueGrey,
+          additionalInformation(
+            "${data!.wind} m/s",
+            "${data!.humidity}%",
+            "${data!.pressure} bar",
+            "${data!.feelsLike}°C",
           ),
           const SizedBox(
             height: 10.0,
           ),
-          additionalInformation(
-            "${data!.wind} m/s",
-            "${data!.humidity} %",
-            "${data!.pressure} bar",
-            "${data!.feelsLike}°C",
+          const Center(
+            child: SizedBox(
+              width: 200,
+              height: 50,
+              child: Text(
+                'Powered by OpenWeather',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
         ],
       ),

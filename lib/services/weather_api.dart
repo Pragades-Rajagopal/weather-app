@@ -19,4 +19,19 @@ class WeatherApi {
       return Weather.voidData();
     }
   }
+
+  Future<DailyWeather> getDailyWeather(double? lat, double? lon) async {
+    try {
+      final env = await parseStringToMap(assetsFileName: '.env');
+
+      var url = Uri.parse(
+          'https://openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&units=metric&appid=${env["OPENWEATHER_API_KEY_DAILY"]}');
+      var response = await http.get(url);
+      var body = jsonDecode(response.body);
+      DailyWeather data = DailyWeather.fromJSON(body["daily"]);
+      return data;
+    } catch (e) {
+      return DailyWeather.voidData();
+    }
+  }
 }

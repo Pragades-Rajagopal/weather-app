@@ -6,6 +6,7 @@ import 'package:weather_app/services/cities_api.dart';
 import 'package:weather_app/services/weather_api.dart';
 import 'package:weather_app/widgets/additional_info.dart';
 import 'package:weather_app/widgets/current_weather.dart';
+import 'package:weather_app/widgets/daily_forecast.dart';
 
 BorderRadius searchBarRadius = BorderRadius.circular(30.0);
 
@@ -23,11 +24,13 @@ class _HomePageState extends State<HomePage> {
 
   WeatherApi client = WeatherApi();
   Weather? data;
+  DailyWeather? dailyData;
   CitiesApi cities = CitiesApi();
   List<String> citiesData = [];
 
   Future<void> getData(String city) async {
     data = await client.getCurrentWeather(city);
+    dailyData = await client.getDailyWeather(data?.lat, data?.lon);
   }
 
   Future<void> getCitiesFunc() async {
@@ -204,23 +207,37 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           additionalInformation(
-            "${data!.wind} m/s",
+            "${data!.wind}m/s",
             "${data!.humidity}%",
-            "${data!.pressure} bar",
+            "${data!.pressure}hPa",
             "${data!.feelsLike}°C",
+            "${data!.degree}",
           ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          const Text(
+            'daily forecast',
+            style: TextStyle(
+              fontSize: 18.0,
+              color: Colors.blueGrey,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          dailyForecast(dailyData!.model),
           const SizedBox(
             height: 10.0,
           ),
           const Center(
             child: SizedBox(
-              width: 200,
+              width: 240,
               height: 50,
               child: Text(
-                'Powered by OpenWeather',
+                'Data provided by OpenWeather',
                 style: TextStyle(
                   color: Colors.white,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
           ),

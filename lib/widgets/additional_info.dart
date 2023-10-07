@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 SizedBox div = const SizedBox(height: 16);
 var containerTitleStyle = TextStyle(
-  fontSize: 20,
+  fontSize: 18,
   color: Colors.grey[400],
 );
 var containerInfoStyle = TextStyle(
-  fontSize: 24,
+  fontSize: 22,
   fontWeight: FontWeight.bold,
   color: Colors.grey[400],
 );
@@ -17,6 +17,7 @@ Widget additionalInformation(
   String humidity,
   String pressure,
   String feelsLike,
+  String? degree,
 ) {
   return Container(
     width: double.infinity,
@@ -31,7 +32,7 @@ Widget additionalInformation(
           children: [
             Container(
               width: 165,
-              height: 110,
+              height: 100,
               margin: const EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
@@ -65,7 +66,7 @@ Widget additionalInformation(
             ),
             Container(
               width: 165,
-              height: 110,
+              height: 100,
               margin: const EdgeInsets.only(left: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
@@ -106,7 +107,7 @@ Widget additionalInformation(
           children: [
             Container(
               width: 165,
-              height: 110,
+              height: 100,
               margin: const EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
@@ -140,7 +141,7 @@ Widget additionalInformation(
             ),
             Container(
               width: 165,
-              height: 110,
+              height: 100,
               margin: const EdgeInsets.only(left: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),

@@ -105,40 +105,6 @@ Widget dailyForecast(List data) {
                         ],
                       ),
                     ),
-
-                    // Row(
-                    //   children: [
-                    //     Text(
-                    //       data[index]["description"],
-                    //       style: cardDescrStyle,
-                    //       softWrap: true,
-                    //     ),
-                    //   ],
-                    // )
-                    // Expanded(
-                    //   child: Column(
-                    //     children: [
-                    //       Row(
-                    //         children: [
-                    //           Text(
-                    //             "${data[index]["tempMax"]} / ${data[index]["tempMin"]}°C",
-                    //             style: cardTempStyle,
-                    //           ),
-                    //         ],
-                    //       ),
-                    //       Row(
-                    //         children: [
-                    //           Flexible(
-                    //             child: Text(
-                    //               data[index]["description"],
-                    //               style: cardDescrStyle,
-                    //             ),
-                    //           ),
-                    //         ],
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
                   ],
                 ),
               );

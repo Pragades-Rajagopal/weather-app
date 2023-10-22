@@ -27,19 +27,25 @@ class _HomePageState extends State<HomePage> {
   DailyWeather? dailyData;
   CitiesApi cities = CitiesApi();
   List<String> citiesData = [];
+  String? country;
 
   Future<void> getData(String city) async {
     data = await client.getCurrentWeather(city);
     dailyData = await client.getDailyWeather(data?.lat, data?.lon);
+    await getCitiesFunc();
+    await countryName(data!.country);
   }
 
   Future<void> getCitiesFunc() async {
     citiesData = await cities.getCities();
   }
 
+  Future<void> countryName(String? code) async {
+    country = await cities.getCountryName(code!);
+  }
+
   @override
   Widget build(BuildContext context) {
-    getCitiesFunc();
     return Scaffold(
       backgroundColor: const Color(0xFF0F1026),
       appBar: weatherAppBar(),
@@ -48,6 +54,7 @@ class _HomePageState extends State<HomePage> {
           weatherAppSearch(),
           Expanded(
             child: SingleChildScrollView(
+              padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
                   weatherFutureBuilder(searchCity),
@@ -64,7 +71,7 @@ class _HomePageState extends State<HomePage> {
     GlobalKey<AutoCompleteTextFieldState<String>> key = GlobalKey();
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 10,
+        horizontal: 20,
         vertical: 8,
       ),
       child: Row(
@@ -193,7 +200,7 @@ class _HomePageState extends State<HomePage> {
             "${data!.temp}°C",
             "${data!.cityName}",
             "${data!.description}",
-            "${data!.country}",
+            "$country",
           ),
           const SizedBox(
             height: 30.0,
@@ -256,7 +263,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       forceMaterialTransparency: false,
-      title: const Text('weather app'),
+      title: const Text('forekast'),
       centerTitle: true,
       titleTextStyle: GoogleFonts.poppins(
         fontSize: 24.0,

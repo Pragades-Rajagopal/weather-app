@@ -54,3 +54,12 @@ String? getDirection(int degree) {
     return direction;
   }
 }
+
+/// rangeDescription
+/// Trims description to 12 character
+String rangeDescription(String descr) {
+  if (descr.split('').length > 12) {
+    return "${descr.split('').getRange(0, 12).join()}...";
+  }
+  return descr;
+}

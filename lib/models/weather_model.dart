@@ -62,7 +62,7 @@ class DailyWeather {
         "tempMin": roundTempValue(json[i]["temp"]["min"]).toString(),
         "tempMax": roundTempValue(json[i]["temp"]["max"]).toString(),
         "dt": getDateFromEpoch(json[i]["dt"]),
-        "description": json[i]["weather"][0]["description"],
+        "description": rangeDescription(json[i]["weather"][0]["description"]),
         "icon": json[i]["weather"][0]["icon"],
       });
     }

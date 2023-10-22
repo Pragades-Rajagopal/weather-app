@@ -36,7 +36,7 @@ Widget dailyForecast(List data) {
   } else {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 1),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +78,12 @@ Widget dailyForecast(List data) {
                         child: getIcon(data[index]["icon"]),
                       ),
                     ),
-                    Expanded(
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        // vertical: 20,
+                      ),
                       child: Column(
                         children: [
                           Row(
@@ -91,17 +96,49 @@ Widget dailyForecast(List data) {
                           ),
                           Row(
                             children: [
-                              Flexible(
-                                child: Text(
-                                  data[index]["description"],
-                                  style: cardDescrStyle,
-                                ),
+                              Text(
+                                data[index]["description"],
+                                style: cardDescrStyle,
                               ),
                             ],
                           )
                         ],
                       ),
                     ),
+
+                    // Row(
+                    //   children: [
+                    //     Text(
+                    //       data[index]["description"],
+                    //       style: cardDescrStyle,
+                    //       softWrap: true,
+                    //     ),
+                    //   ],
+                    // )
+                    // Expanded(
+                    //   child: Column(
+                    //     children: [
+                    //       Row(
+                    //         children: [
+                    //           Text(
+                    //             "${data[index]["tempMax"]} / ${data[index]["tempMin"]}°C",
+                    //             style: cardTempStyle,
+                    //           ),
+                    //         ],
+                    //       ),
+                    //       Row(
+                    //         children: [
+                    //           Flexible(
+                    //             child: Text(
+                    //               data[index]["description"],
+                    //               style: cardDescrStyle,
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
               );

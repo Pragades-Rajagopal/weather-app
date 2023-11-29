@@ -3,7 +3,7 @@ import 'package:weather_app/utils/common_function.dart';
 class Weather {
   String? cityName;
   int? temp;
-  double? wind;
+  int? wind;
   int? humidity;
   int? feelsLike;
   int? pressure;
@@ -34,7 +34,7 @@ class Weather {
   Weather.fromJSON(Map<String, dynamic> json) {
     cityName = json["name"];
     temp = roundTempValue(json["main"]["temp"]);
-    wind = json["wind"]["speed"];
+    wind = (json["wind"]["speed"]).round();
     humidity = json["main"]["humidity"];
     pressure = json["main"]["pressure"];
     feelsLike = roundTempValue(json["main"]["feels_like"]);

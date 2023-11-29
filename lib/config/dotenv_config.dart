@@ -6,10 +6,7 @@ Future<Map<String, String>> parseStringToMap(
   Map<String, String> environment = {};
   for (String line in lines.split('\n')) {
     line = line.trim();
-    if (line.contains('=') //Set Key Value Pairs on lines separated by =
-        &&
-        !line.startsWith(RegExp(r'=|#'))) {
-      //No need to add emty keys and remove comments
+    if (line.contains('=') && !line.startsWith(RegExp(r'=|#'))) {
       List<String> contents = line.split('=');
       environment[contents[0]] = contents.sublist(1).join('=');
     }

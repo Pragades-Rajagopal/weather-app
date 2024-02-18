@@ -12,7 +12,7 @@ class Weather {
   String? country;
   double? lat;
   double? lon;
-  String? degree;
+  int? degree;
 
   Weather({
     this.cityName,
@@ -44,6 +44,7 @@ class Weather {
     lat = json["coord"]["lat"];
     lon = json["coord"]["lon"];
     // degree = getDirection(json["wind"]["deg"]);
+    degree = json["wind"]["deg"];
   }
 
   // Function to return json when unknown city is searched
@@ -62,7 +63,8 @@ class DailyWeather {
         "tempMin": roundTempValue(json[i]["temp"]["min"]).toString(),
         "tempMax": roundTempValue(json[i]["temp"]["max"]).toString(),
         "dt": getDateFromEpoch(json[i]["dt"]),
-        "description": rangeDescription(json[i]["weather"][0]["description"]),
+        // "description": rangeDescription(json[i]["weather"][0]["description"]),
+        "description": json[i]["weather"][0]["description"],
         "icon": json[i]["weather"][0]["icon"],
       });
     }

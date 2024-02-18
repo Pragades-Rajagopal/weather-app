@@ -32,14 +32,17 @@ Widget currentWeather(
         const SizedBox(
           height: 10.0,
         ),
-        Text(
-          "$location, $country",
-          style: const TextStyle(
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey,
+        SizedBox(
+          width: 340,
+          child: Text(
+            "$location, $country",
+            style: const TextStyle(
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
         const SizedBox(
           height: 10.0,

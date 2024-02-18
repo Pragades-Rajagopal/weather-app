@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 var cardDateStyle = TextStyle(
   fontSize: 14,
-  fontWeight: FontWeight.bold,
+  // fontWeight: FontWeight.bold,
   color: Colors.grey[400],
 );
 
@@ -34,9 +34,8 @@ Widget dailyForecast(List data) {
       ),
     );
   } else {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 1),
+    return SizedBox(
+      width: 366.0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -52,60 +51,82 @@ Widget dailyForecast(List data) {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 color: Colors.blueGrey.withOpacity(0.2),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                      ),
-                      child: Text(
-                        data[index]["dt"],
-                        style: cardDateStyle,
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        // vertical: 20,
-                      ),
-                      child: SizedBox(
-                        width: 80,
-                        height: 80,
-                        child: getIcon(data[index]["icon"]),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        // vertical: 20,
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                "${data[index]["tempMax"]} / ${data[index]["tempMin"]}°C",
-                                style: cardTempStyle,
-                              ),
-                            ],
+                child: SafeArea(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            alignment: Alignment.center,
+                            // width: 200.0,
+                            // height: 100.0,
+                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Text(
+                              data[index]["dt"],
+                              style: cardDateStyle,
+                            ),
                           ),
-                          Row(
-                            children: [
-                              Text(
-                                data[index]["description"],
-                                style: cardDescrStyle,
-                              ),
-                            ],
-                          )
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        flex: 2,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              // vertical: 20,
+                            ),
+                            child: SizedBox(
+                              width: 80,
+                              height: 80,
+                              child: getIcon(data[index]["icon"]),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              // vertical: 20,
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "${data[index]["tempMax"]} / ${data[index]["tempMin"]}°C",
+                                      style: cardTempStyle,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        data[index]["description"],
+                                        style: cardDescrStyle,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },

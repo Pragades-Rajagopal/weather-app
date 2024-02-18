@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 SizedBox div = const SizedBox(height: 16);
 var containerTitleStyle = TextStyle(
-  fontSize: 18,
+  fontSize: 16,
   color: Colors.grey[400],
 );
 var containerInfoStyle = TextStyle(

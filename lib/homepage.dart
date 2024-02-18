@@ -29,10 +29,19 @@ class _HomePageState extends State<HomePage> {
   List<String> citiesData = [];
   String? country;
 
+  @override
+  void initState() {
+    super.initState();
+    initStateMethods();
+  }
+
+  void initStateMethods() async {
+    await getCitiesFunc();
+  }
+
   Future<void> getData(String city) async {
     data = await client.getCurrentWeather(city);
     dailyData = await client.getDailyWeather(data?.lat, data?.lon);
-    await getCitiesFunc();
     await countryName(data!.country);
   }
 
@@ -54,6 +63,7 @@ class _HomePageState extends State<HomePage> {
           weatherAppSearch(),
           Expanded(
             child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
@@ -69,11 +79,9 @@ class _HomePageState extends State<HomePage> {
 
   Widget weatherAppSearch() {
     GlobalKey<AutoCompleteTextFieldState<String>> key = GlobalKey();
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 8,
-      ),
+    return SizedBox(
+      height: 48,
+      width: 360,
       child: Row(
         children: [
           Expanded(
@@ -154,7 +162,7 @@ class _HomePageState extends State<HomePage> {
             if (data?.cityName == '') {
               return const Center(
                 child: Text(
-                  "Oops! \nWeather info not available. Please search for another city.",
+                  "Oops! \nWeather info not available.\nPlease search for another city.",
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -165,7 +173,13 @@ class _HomePageState extends State<HomePage> {
             return weatherColumn(data);
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              ),
             );
           }
           return const Center(

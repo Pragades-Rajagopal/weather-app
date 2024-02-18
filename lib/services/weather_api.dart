@@ -8,7 +8,6 @@ class WeatherApi {
     try {
       // Get the API key from .env file
       final env = await parseStringToMap(assetsFileName: '.env');
-
       var url = Uri.parse(
           'https://api.openweathermap.org/data/2.5/weather?q=$city&appid=${env["OPENWEATHER_API_KEY"]}&units=metric');
       var response = await http.get(url);
@@ -23,7 +22,6 @@ class WeatherApi {
   Future<DailyWeather> getDailyWeather(double? lat, double? lon) async {
     try {
       final env = await parseStringToMap(assetsFileName: '.env');
-
       var url = Uri.parse(
           'https://openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&units=metric&appid=${env["OPENWEATHER_API_KEY_DAILY"]}');
       var response = await http.get(url);

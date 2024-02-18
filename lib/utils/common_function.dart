@@ -9,7 +9,7 @@ int roundTempValue(dynamic temp) {
 String? getDateFromEpoch(int epoch) {
   var timestamp = epoch;
   var date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-  return "${getWeekday(date.weekday)}, ${getMonth(date.month)} ${date.day}";
+  return "${getWeekday(date.weekday)},\n${getMonth(date.month)} ${date.day}";
 }
 
 String? getWeekday(int weekday) {

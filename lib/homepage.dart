@@ -228,7 +228,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           additionalInformation(
-            "${data!.wind}m/s",
+            "${data!.wind}m/s ${data!.degree}",
             "${data!.humidity}%",
             "${data!.pressure}hPa",
             "${data!.feelsLike}°C",

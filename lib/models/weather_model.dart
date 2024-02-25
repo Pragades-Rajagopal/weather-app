@@ -12,7 +12,7 @@ class Weather {
   String? country;
   double? lat;
   double? lon;
-  int? degree;
+  String? degree;
 
   Weather({
     this.cityName,
@@ -43,8 +43,8 @@ class Weather {
     country = json["sys"]["country"];
     lat = json["coord"]["lat"];
     lon = json["coord"]["lon"];
-    // degree = getDirection(json["wind"]["deg"]);
-    degree = json["wind"]["deg"];
+    degree = getDirection(json["wind"]["deg"]);
+    // degree = json["wind"]["deg"];
   }
 
   // Function to return json when unknown city is searched
